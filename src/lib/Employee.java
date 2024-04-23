@@ -25,18 +25,15 @@ public class Employee {
 	// Menggunakan tipe enum untuk gender
 	private Gender gender; 
 	
-	
+	// Informasi Gaji
 	private int monthlySalary;
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
 	// Detail Keluarga
 	private Spouse spouse; // membagi menjadi class informasi spouse
+	private List<Child> children; // membagi menjadi class informasi child
 
-
-	private List<String> childNames;
-	private List<String> childIdNumbers;
-	
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate joinedDate,boolean isForeigner, Gender gender) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -47,8 +44,7 @@ public class Employee {
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
+		this.children = children;
 	}
 	
 	/**
