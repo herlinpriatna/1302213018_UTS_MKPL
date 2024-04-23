@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class Employee {
 	private enum Gender{
@@ -49,6 +50,17 @@ public class Employee {
 		this.monthlySalary = monthlySalary;
 		this.otherMonthlyIncome = otherMonthlyIncome;
 		this.annualDeductible = annualDeductible;
+	}
+
+	// Menambahkan method construction dengan optional spouse dan children
+	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
+	LocalDate joinedDate, boolean isForeigner, Gender gender, int monthlySalary,
+	int otherMonthlyIncome, int annualDeductible, Optional<Spouse> spouse,
+	List<Child> children) {
+		this(employeeId, firstName, lastName, idNumber, address, joinedDate, isForeigner, gender,
+		monthlySalary, otherMonthlyIncome, annualDeductible);
+		this.spouse = spouse.orElse(null); // Set spouse ke null apabila tidak memiliki
+		this.children = children;
 	}
 	
 	/**
