@@ -1,7 +1,7 @@
 package lib;
 
 public class Income {
-    private boolean isForeigner;
+  
     private int monthlySalary;
     private int otherMonthlyIncome;
     private int annualDeductible;

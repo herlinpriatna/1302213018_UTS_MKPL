@@ -12,11 +12,7 @@ public class Employee {
 		WANITA
 	}
 
-	private String employeeId;
-	private String firstName;
-	private String lastName;
-	private String idNumber;
-	private String address;
+	private EmployeeDetails employeeDetails;
 	
 	// Menggunakan LocalDate untuk menghandle data join
 	private LocalDate joinedDate;
@@ -34,13 +30,9 @@ public class Employee {
 	private List<Child> children; // membagi menjadi class informasi child
 
 	// Mengubah method Employee
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
+	public Employee(EmployeeDetails employeeDetails,
 	LocalDate joinedDate, boolean isForeigner, Gender gender, Income income) {
-		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idNumber = idNumber;
-		this.address = address;
+		this.employeeDetails = employeeDetails;
 		this.joinedDate = joinedDate;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
@@ -48,10 +40,10 @@ public class Employee {
 	}
 
 	// Menambahkan method construction dengan optional spouse dan children
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
+	public Employee(EmployeeDetails employeeDetails,
 	LocalDate joinedDate, boolean isForeigner, Gender gender, Income income, Optional<Spouse> spouse,
 	List<Child> children) {
-		this(employeeId, firstName, lastName, idNumber, address, joinedDate, isForeigner, gender,
+		this(employeeDetails, joinedDate, isForeigner, gender,
 		income);
 		this.spouse = spouse.orElse(null); // Set spouse ke null apabila tidak memiliki
 		this.children = children;
