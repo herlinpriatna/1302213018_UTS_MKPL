@@ -25,12 +25,14 @@ public class Employee {
 	// Menggunakan tipe enum untuk gender
 	private Gender gender; 
 	
+	
 	private int monthlySalary;
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	private String spouseName;
-	private String spouseIdNumber;
+	// Detail Keluarga
+	private Spouse spouse; // membagi menjadi class informasi spouse
+
 
 	private List<String> childNames;
 	private List<String> childIdNumbers;
