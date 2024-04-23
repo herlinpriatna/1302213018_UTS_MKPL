@@ -103,17 +103,22 @@ public class Employee {
 		this.children.add(child);
 	  }
 	
-	public int getAnnualIncomeTax() {
-		
-		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
+	  public int getAnnualIncomeTax() {
 		LocalDate date = LocalDate.now();
-		
-		if (date.getYear() == yearJoined) {
-			monthWorkingInYear = date.getMonthValue() - monthJoined;
-		}else {
-			monthWorkingInYear = 12;
+		int currentYear = date.getYear();
+		int currentMonth = date.getMonthValue();
+	  
+		// Assuming 'joinedDate' attribute is present in the Employee class
+		if (joinedDate.getYear() == currentYear) {
+		  monthWorkingInYear = currentMonth - joinedDate.getMonthValue();
+		} else {
+		  monthWorkingInYear = 12;
 		}
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
-	}
+		boolean hasSpouse = this.spouse != null;
+		int numberOfChildren = this.children != null ? this.children.size() : 0;
+		
+		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, hasSpouse, numberOfChildren);
+	  }
+	
 }
