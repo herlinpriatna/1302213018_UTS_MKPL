@@ -27,9 +27,7 @@ public class Employee {
 	private Gender gender; 
 	
 	// Informasi Gaji
-	private int monthlySalary;
-	private int otherMonthlyIncome;
-	private int annualDeductible;
+	private Income income;
 	
 	// Detail Keluarga
 	private Spouse spouse; // membagi menjadi class informasi spouse
@@ -37,8 +35,7 @@ public class Employee {
 
 	// Mengubah method Employee
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
-	LocalDate joinedDate, boolean isForeigner, Gender gender, int monthlySalary,
-	int otherMonthlyIncome, int annualDeductible) {
+	LocalDate joinedDate, boolean isForeigner, Gender gender, Income income) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -47,18 +44,15 @@ public class Employee {
 		this.joinedDate = joinedDate;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
-		this.monthlySalary = monthlySalary;
-		this.otherMonthlyIncome = otherMonthlyIncome;
-		this.annualDeductible = annualDeductible;
+		this.income = income;
 	}
 
 	// Menambahkan method construction dengan optional spouse dan children
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
-	LocalDate joinedDate, boolean isForeigner, Gender gender, int monthlySalary,
-	int otherMonthlyIncome, int annualDeductible, Optional<Spouse> spouse,
+	LocalDate joinedDate, boolean isForeigner, Gender gender, Income income, Optional<Spouse> spouse,
 	List<Child> children) {
 		this(employeeId, firstName, lastName, idNumber, address, joinedDate, isForeigner, gender,
-		monthlySalary, otherMonthlyIncome, annualDeductible);
+		income);
 		this.spouse = spouse.orElse(null); // Set spouse ke null apabila tidak memiliki
 		this.children = children;
 	}
@@ -67,9 +61,7 @@ public class Employee {
 	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
-	
-	 // set monthSalary
-	 public void setMonthlySalary(int grade) {
+	public void setMonthlySalary(int grade) {
 		int baseSalary;
 		switch (grade) {
 		  case 1:
@@ -82,22 +74,10 @@ public class Employee {
 			baseSalary = 7000000;
 			break;
 		  default:
-			baseSalary = 0;
+			throw new IllegalArgumentException("Invalid employee grade: " + grade);
 		}
 	  
-		this.monthlySalary = isForeigner ? (int) (baseSalary * 1.5) : baseSalary;
-	  }
-	
-	public void setAnnualDeductible(int deductible) {	
-		this.annualDeductible = deductible;
-	}
-	
-	public void setAdditionalIncome(int income) {	
-		this.otherMonthlyIncome = income;
-	}
-	
-	public void setSpouse(Spouse spouse) {
-		this.spouse = spouse;
+		this.income.setMonthlySalary(isForeigner ? (int) (baseSalary * 1.5) : baseSalary);
 	  }
 	
 	  public void addChild(Child child) {
@@ -119,7 +99,7 @@ public class Employee {
 		boolean hasSpouse = this.spouse != null;
 		int numberOfChildren = this.children != null ? this.children.size() : 0;
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, hasSpouse, numberOfChildren);
+		return TaxFunction.calculateTax(income.getMonthlySalary(), income.getOtherMonthlyIncome(), monthWorkingInYear, income.getAnnualDeductible(), hasSpouse, numberOfChildren);
 	  }
 	
 }
