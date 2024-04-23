@@ -34,7 +34,10 @@ public class Employee {
 	private Spouse spouse; // membagi menjadi class informasi spouse
 	private List<Child> children; // membagi menjadi class informasi child
 
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate joinedDate,boolean isForeigner, Gender gender) {
+	// Mengubah method Employee
+	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
+	LocalDate joinedDate, boolean isForeigner, Gender gender, int monthlySalary,
+	int otherMonthlyIncome, int annualDeductible) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -43,8 +46,9 @@ public class Employee {
 		this.joinedDate = joinedDate;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
-		
-		this.children = children;
+		this.monthlySalary = monthlySalary;
+		this.otherMonthlyIncome = otherMonthlyIncome;
+		this.annualDeductible = annualDeductible;
 	}
 	
 	/**
